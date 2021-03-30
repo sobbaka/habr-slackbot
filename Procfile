@@ -1,0 +1,1 @@
+web: gunicorn slackclient.wsgi --log-file -
