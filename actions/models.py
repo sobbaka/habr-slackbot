@@ -53,8 +53,8 @@ class Setting(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length = 255, unique = True)
-    url = models.SlugField(unique=True)
-    habr_url = models.SlugField()
+    url = models.SlugField(unique=True, max_length = 255) #Trouble over 50
+    habr_url = models.SlugField(max_length = 255)
     pub_date = models.DateTimeField()
     categories = models.TextField()
 
