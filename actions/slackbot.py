@@ -23,8 +23,3 @@ def slack_post_msg(text, channel, **kwargs):
         url="https://slack.com/api/chat.postMessage",
         data=data
     )
-
-    # pp("response from 'slack_post_msg' [%d]: %s" % (
-    #         response.status_code,
-    #         json.dumps(json.loads(response.text), indent=4)
-    # ))
