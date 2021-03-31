@@ -2,3 +2,5 @@
 parser.py
 posts.txt
 db.sqlite3
+venv/
+__pycache__/
