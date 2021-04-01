@@ -1,18 +1,15 @@
-import json
-import os
+# import json
+# import os
 import requests
-# from pprint import pprint as pp
-from dotenv import load_dotenv
-from slackclient.settings import BASE_DIR
-
-load_dotenv(os.path.join(BASE_DIR, '.env'))
-
-SLACK_BOT_TOKEN = os.getenv('SLACK_BOT_TOKEN')
+# from dotenv import load_dotenv
+# from slackclient.settings import BASE_DIR
+# load_dotenv(os.path.join(BASE_DIR, '.env'))
+# SLACK_BOT_TOKEN = os.getenv('SLACK_BOT_TOKEN')
 
 
-def slack_post_msg(text, channel, **kwargs):
+def slack_post_msg(text, channel, token, **kwargs):
     data = {
-        "token": SLACK_BOT_TOKEN,
+        "token": token,
         "channel": channel,
         "text": f'{text}'
     }

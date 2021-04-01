@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,18 +82,21 @@ WSGI_APPLICATION = 'slackclient.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd6r9578828qatd',
-        'HOST': 'ec2-3-233-43-103.compute-1.amazonaws.com',
-        'PORT': '5432',
-        'USER': 'dywpienyejnyze',
-        'PASSWORD': 'c7349647810b5b9ba568ec78e1b2fc9bdabb1a5f41c2e90b9692c10ed0e328cb'
 
-    }
-}
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'd6r9578828qatd',
+#         'HOST': 'ec2-3-233-43-103.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#         'USER': 'dywpienyejnyze',
+#         'PASSWORD': 'c7349647810b5b9ba568ec78e1b2fc9bdabb1a5f41c2e90b9692c10ed0e328cb'
+#
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
