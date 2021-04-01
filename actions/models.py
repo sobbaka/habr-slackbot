@@ -13,7 +13,6 @@ def only_future(value):
 class Workspace(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название')
     token = models.CharField(max_length=255, verbose_name='Token')
-
     class Meta:
         verbose_name = 'Настройка Workspace'
         verbose_name_plural = 'Настройки Workspace'
@@ -47,7 +46,7 @@ class Setting(models.Model):
         verbose_name='Ключевые слова',
         help_text='Укажите названия каналов через запятую математика, python'
     )
-    token = models.ManyToManyField(Workspace, related_name='token')
+    token = models.ManyToManyField(Workspace, related_name='settings')
 
     def prev_date(self):
         prev_date = self.start_date - datetime.timedelta(days=self.schedule_days, hours=self.schedule_hours)
@@ -63,7 +62,7 @@ class Setting(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length = 255, unique = True)
-    url = models.SlugField(unique=True, max_length = 255) #Trouble over 50
+    url = models.SlugField(unique=True, max_length = 255)
     habr_url = models.SlugField(max_length = 255)
     pub_date = models.DateTimeField()
     categories = models.TextField()

@@ -26,6 +26,8 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -82,21 +84,21 @@ WSGI_APPLICATION = 'slackclient.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# DATABASES['default'] = dj_database_url.parse(os.getenv('DEFAULT'), conn_max_age=600, ssl_require=True)
+# postgres://lclyywsxtqczmu:b83eeefd95a2848bc8730a4648a8717bac9d900dbc42f1df5a308393d5e42c1c@ec2-3-211-37-117.compute-1.amazonaws.com:5432/dbsnitvnkot8s9
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dbsnitvnkot8s9',
+        'HOST': 'ec2-3-211-37-117.compute-1.amazonaws.com',
+        'PORT': '5432',
+        'USER': 'lclyywsxtqczmu',
+        'PASSWORD': 'b83eeefd95a2848bc8730a4648a8717bac9d900dbc42f1df5a308393d5e42c1c'
 
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'd6r9578828qatd',
-#         'HOST': 'ec2-3-233-43-103.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#         'USER': 'dywpienyejnyze',
-#         'PASSWORD': 'c7349647810b5b9ba568ec78e1b2fc9bdabb1a5f41c2e90b9692c10ed0e328cb'
-#
-#     }
-# }
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
