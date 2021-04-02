@@ -23,12 +23,12 @@ def debug_task(self):
 
 
 app.conf.beat_schedule = {
-    'check_sender': {
-        'task': 'actions.tasks.sender',
+    'parsing': {
+        'task': 'actions.tasks.parser',
         'schedule': crontab(),
     },
-    'parsing': {
-        'task': 'actions.parser_alt.parser',
+    'send_messages': {
+        'task': 'actions.tasks.schedule_sender',
         'schedule': crontab(),
     },
 }

@@ -13,6 +13,10 @@ def only_future(value):
 class Workspace(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название')
     token = models.CharField(max_length=255, verbose_name='Token')
+
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = 'Настройка Workspace'
         verbose_name_plural = 'Настройки Workspace'
@@ -47,6 +51,16 @@ class Setting(models.Model):
         help_text='Укажите названия каналов через запятую математика, python'
     )
     token = models.ManyToManyField(Workspace, related_name='settings')
+    first_launch = models.BooleanField(default=True)
+    debug = models.BooleanField(default=False)
+    send_every_new_post = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        time = self.schedule_hours + self.schedule_days
+        if not time:
+            self.send_every_new_post = True
+        super(Setting, self).save(*args, **kwargs)
+
 
     def prev_date(self):
         prev_date = self.start_date - datetime.timedelta(days=self.schedule_days, hours=self.schedule_hours)
@@ -67,6 +81,5 @@ class Post(models.Model):
     pub_date = models.DateTimeField()
     categories = models.TextField()
 
-
-
-
+    def __str__(self):
+        return f"{self.title[:30]} {self.pub_date.strftime('%d-%m-%y-%H-%m')}"

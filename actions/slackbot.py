@@ -1,6 +1,7 @@
-# import json
+import json
 # import os
 import requests
+from pprint import pprint as pp
 # from dotenv import load_dotenv
 # from slackclient.settings import BASE_DIR
 # load_dotenv(os.path.join(BASE_DIR, '.env'))
@@ -20,3 +21,9 @@ def slack_post_msg(text, channel, token, **kwargs):
         url="https://slack.com/api/chat.postMessage",
         data=data
     )
+
+    pp("response from 'slack_post_msg' [%d]: %s" % (
+            response.status_code,
+            json.dumps(json.loads(response.text), indent=4)
+    ))
+

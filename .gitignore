@@ -1,5 +1,6 @@
 .env
 parser.py
+parser_alt.py
 posts.txt
 db.sqlite3
 venv/
