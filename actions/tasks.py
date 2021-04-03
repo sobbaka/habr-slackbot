@@ -13,7 +13,7 @@ def posts_msg_gen(setting):
     if setting.first_launch:
         posts = Post.objects.order_by('-pub_date')
     elif setting.send_every_new_post:
-        post = Post.objects.order_by('-pub_date')[0]
+        post = Post.objects.order_by('-pub_date')[0] #change ti POST ID-PK
         if tags:
             msg = f'\n<{post.url}|{post.title}>' \
                 if any(True for tag in tags if tag in tag.lstrip().lower() in post.categories.lower()) else None

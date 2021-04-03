@@ -32,12 +32,13 @@ class Setting(models.Model):
     schedule_days = models.PositiveIntegerField(
         default=0,
         validators=[MinValueValidator(0), MaxValueValidator(7)],
-        verbose_name = 'Периодичность Дни'
+        verbose_name = 'Периодичность Дни',
     )
     schedule_hours = models.PositiveIntegerField(
         default=0,
         validators=[MinValueValidator(0)],
-        verbose_name='Периодичность Часы'
+        verbose_name='Периодичность Часы',
+        help_text='Оставьте поля пустыми для отправки каждого нового поста на канале'
     )
     channels = models.CharField(
         max_length=255,
@@ -51,7 +52,11 @@ class Setting(models.Model):
         help_text='Укажите названия каналов через запятую математика, python'
     )
     token = models.ManyToManyField(Workspace, related_name='settings')
-    first_launch = models.BooleanField(default=True)
+    first_launch = models.BooleanField(
+        default=True,
+        verbose_name='Первый запуск',
+        help_text='При первом запуске делает рассылку первых 5 постов подходящих под условия настройки. Далее согласно настройке'
+    )
     debug = models.BooleanField(default=False)
     send_every_new_post = models.BooleanField(default=False)
 
