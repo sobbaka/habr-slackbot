@@ -17,5 +17,6 @@ class SettingAdmin(admin.ModelAdmin):
         'schedule_hours'),
         'channels',
         'tags',
+        'token',
         'first_launch'
     )
