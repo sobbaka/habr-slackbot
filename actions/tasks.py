@@ -13,7 +13,7 @@ def posts_msg_gen(setting):
     if setting.first_launch:
         posts = Post.objects.order_by('-pub_date')
     elif setting.send_every_new_post:
-        post = Post.objects.order_by('-pub_date')[0] #change ti POST ID-PK
+        post = Post.objects.order_by('pk')[0] #change ti POST ID-PK
         if tags:
             msg = f'\n<{post.url}|{post.title}>' \
                 if any(True for tag in tags if tag in tag.lstrip().lower() in post.categories.lower()) else None
@@ -64,6 +64,9 @@ def sender(settings):
 @shared_task
 def schedule_sender():
     settings = Setting.objects.filter(start_date__lte=timezone.localtime(timezone.now()), send_every_new_post=False)
+    if settings:
+        sender(settings)
+    settings = Setting.objects.filter(send_every_new_post=True, first_launch = True)
     if settings:
         sender(settings)
 
