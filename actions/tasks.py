@@ -6,6 +6,9 @@ from datetime import timedelta, datetime
 
 from .models import Setting, Post
 from .slackbot import *
+from slackclient.settings import HABR_RSS_URL
+
+
 
 # Slack message generator
 def posts_msg_gen(setting):
@@ -31,8 +34,9 @@ def posts_msg_gen(setting):
         setting.save()
         return msg
 
+
 # Bot settings date updater. Date must be always in Future.
-# If something happend to task manager you can always update dates before next launch
+# If something happened to task manager you can always update dates before next launch
 def setting_date_upd():
     settings = Setting.objects.all()
     for setting in settings:
@@ -61,6 +65,7 @@ def sender(settings):
                                                                 hours=setting.schedule_hours)
             setting.save()
 
+
 @shared_task
 def schedule_sender():
     settings = Setting.objects.filter(start_date__lte=timezone.localtime(timezone.now()), send_every_new_post=False)
@@ -71,16 +76,14 @@ def schedule_sender():
         sender(settings)
 
 
-# Habr parser part
-HABR_URL = 'https://habr.com/ru/rss/company/skillfactory/blog/?fl=ru'
-
 def get_html(url):
     r = requests.get(url)
     return r.text
 
+
 @shared_task
 def parser():
-    habr_url = HABR_URL
+    habr_url = HABR_RSS_URL
     html = get_html(habr_url)
     soup = BeautifulSoup(html, 'xml')
     posts = soup.findAll('item')

@@ -9,3 +9,6 @@ __pycache__/
 */migrations/*
 !*/migrations/__init__.py
 .idea/
+actions/parser_alt.py
+actions/views.py
+*tests.py

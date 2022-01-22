@@ -11,6 +11,7 @@ def only_future(value):
 
 # Create your models here.
 class Workspace(models.Model):
+    """This is setting for Slack Workplace"""
     name = models.CharField(max_length=255, verbose_name='Название')
     token = models.CharField(max_length=255, verbose_name='Token')
 
@@ -68,6 +69,7 @@ class Setting(models.Model):
 
 
     def prev_date(self):
+        """Getter for date of previous mailing"""
         prev_date = self.start_date - datetime.timedelta(days=self.schedule_days, hours=self.schedule_hours)
         return prev_date
 

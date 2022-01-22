@@ -28,11 +28,11 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-
+HABR_RSS_URL = 'https://habr.com/ru/rss/company/skillfactory/blog/?fl=ru'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['habr-slackbot.herokuapp.com', '127.0.0.1', '0.0.0.0']
 
